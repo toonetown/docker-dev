@@ -22,3 +22,19 @@ done
 docker tag ${REPO}:${DEFAULT} ${REPO}:latest && docker push ${REPO}:latest
 
 ```
+
+### To run wireshark on OS X but targeting these images ###
+
+Launch your instance with `--cap-add ALL`
+
+From your host machine, run:
+
+```bash
+mkfifo /tmp/sharkfin && wireshark -k -i /tmp/sharkfin; rm /tmp/sharkfin
+```
+
+From your host machine in a different window, run:
+
+```bash
+docker exec -i <instance_name> /usr/bin/dumpcap -i eth0 -Ppw- -f 'ip' > /tmp/sharkfin
+```
