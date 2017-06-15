@@ -8,7 +8,7 @@ From the root directory (where this file is located), run:
 
 ```bash
 REPO="toonetown/dev"
-DEFAULT="ubuntu"
+DEFAULT="alpine"
 
 for DIR in $(find * -name Dockerfile -exec dirname {} \;); do
   TAG="$(echo "${DIR}" | sed -e 's|/|-|g')"
