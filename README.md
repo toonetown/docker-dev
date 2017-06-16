@@ -1,27 +1,16 @@
 ## Docker-Dev ##
 
-This is a set of Dockerfiles that build images with some helpful development tools (compilers, network utilities, editors, remote capturing and piping).
+This is a set of scripts that build images with some helpful development tools (compilers, network utilities, editors, remote capturing and piping).
 
-### To build and deploy all tags ###
+These images have the following packages installed:
 
-From the root directory (where this file is located), run:
-
-```bash
-REPO="toonetown/dev"
-DEFAULT="alpine"
-
-for DIR in $(find * -name Dockerfile -exec dirname {} \;); do
-  TAG="$(echo "${DIR}" | sed -e 's|/|-|g')"
-  docker build --rm -t ${REPO}:${TAG} ${DIR} && docker push ${REPO}:${TAG} || break
-done
-
-for TAG in $(find * -name latest -type d -exec dirname {} \;); do
-  docker tag ${REPO}:${TAG}-latest ${REPO}:${TAG} && docker push ${REPO}:${TAG} || break
-done
-
-docker tag ${REPO}:${DEFAULT} ${REPO}:latest && docker push ${REPO}:latest
-
-```
+ - gcc, g++, make, automake, etc. (so we can build stuff)
+ - perl/python (for scripting)
+ - net-tools (for ifconfig)
+ - iputils-ping (for ping)
+ - iptables (for firewall testing)
+ - wireshark (for network captures)
+ - vi (because, just do it)
 
 ### To run wireshark on OS X but targeting these images ###
 
